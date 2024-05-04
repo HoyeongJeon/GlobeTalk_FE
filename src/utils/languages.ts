@@ -1,0 +1,15 @@
+export const languages = [
+  { code: "ar", name: "Arabic" },
+  { code: "de", name: "German" },
+  { code: "en", name: "English" },
+  { code: "es", name: "Spanish; Castilian" },
+  { code: "fr", name: "French" },
+  { code: "ja", name: "Japanese" },
+  { code: "ko", name: "Korean" },
+  { code: "nl", name: "Dutch; Flemish" },
+  { code: "pt", name: "Portuguese" },
+  { code: "ru", name: "Russian" },
+  { code: "sd", name: "Sindhi" },
+  { code: "tr", name: "Turkish" },
+  { code: "zh", name: "Chinese" },
+];

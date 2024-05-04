@@ -1,27 +1,24 @@
+import { useStore } from "@/stores/store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ProtectRouteProps {
   element: React.ReactElement;
-  isAuth?: boolean;
-  isProtected?: boolean;
-  isPrivate?: boolean;
+  isLoggedIn: boolean;
 }
 
 export const ProtectRoute: React.FC<ProtectRouteProps> = ({
   element,
-  isAuth,
-  isProtected,
-  isPrivate,
+  isLoggedIn,
 }: ProtectRouteProps) => {
   const navigate = useNavigate();
   useEffect(() => {
-    if (isProtected) {
-      navigate("/login");
-    } else if (isPrivate && isAuth && isProtected) {
+    if (isLoggedIn) {
       navigate("/");
+    } else {
+      navigate("/login");
     }
-  }, [isAuth, isProtected, isPrivate, navigate]);
+  }, [isLoggedIn, navigate]);
 
   return element;
 };
