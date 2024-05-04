@@ -15,13 +15,13 @@ const AppRouter = () => {
         {/* <Route path="/" element={<Main />} /> */}
         <Route
           path="/login"
-          element={
-            <ProtectRoute isLoggedIn={isLoggedIn} element={<Signup />} />
-          }
+          element={<ProtectRoute isLoggedIn={isLoggedIn} element={<Login />} />}
         />
         <Route
           path="/signup"
-          element={<ProtectRoute isLoggedIn={isLoggedIn} element={<Login />} />}
+          element={
+            <ProtectRoute isLoggedIn={isLoggedIn} element={<Signup />} />
+          }
         />
 
         <Route
