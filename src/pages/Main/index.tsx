@@ -1,6 +1,18 @@
 import Footer from "@/components/Footer";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Main() {
+  useEffect(() => {
+    const getRecommendedUser = async () => {
+      try {
+        const response = await axios.get("/users/recommended");
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  }, []);
   return (
     <>
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
