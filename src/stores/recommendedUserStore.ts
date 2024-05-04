@@ -8,6 +8,9 @@ interface recommendedUserStore {
   major: string;
   nickname: string;
   state: string;
+  User: {
+    country: string;
+  };
   setUserInfo: (user: recommendedUserStore) => void;
   clearUserInfo: () => void;
 }
@@ -20,6 +23,9 @@ export const useRecommendedUserStore = create<recommendedUserStore>((set) => ({
   major: "",
   nickname: "",
   state: "",
+  User: {
+    country: "",
+  },
   setUserInfo: (user) => set(user),
   clearUserInfo: () =>
     set({
@@ -30,5 +36,8 @@ export const useRecommendedUserStore = create<recommendedUserStore>((set) => ({
       major: "",
       nickname: "",
       state: "",
+      User: {
+        country: "",
+      },
     }),
 }));
