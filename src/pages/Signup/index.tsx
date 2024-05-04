@@ -56,10 +56,15 @@ export default function Signup() {
       });
     }
     try {
-      console.log(inputs);
-      await axios.post("http://localhost:3000/auth/signup", inputs, {
-        withCredentials: true,
-      });
+      await axios.post(
+        `${import.meta.env.VITE_SERVER_HOST}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/auth/signup`,
+        inputs,
+        {
+          withCredentials: true,
+        }
+      );
 
       navigate("/login");
     } catch (error) {
