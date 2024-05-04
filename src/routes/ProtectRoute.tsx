@@ -16,7 +16,7 @@ export const ProtectRoute: React.FC<ProtectRouteProps> = ({
 }: ProtectRouteProps) => {
   const navigate = useNavigate();
   useEffect(() => {
-    if (isProtected) {
+    if (isProtected && !isAuth) {
       navigate("/login");
     } else if (isPrivate && isAuth && isProtected) {
       navigate("/");
