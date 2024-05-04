@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { countries } from "@/utils/countries";
 import { languages } from "@/utils/languages";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Signup() {
     major: "",
     introduce: "",
     country: "",
-    status: "",
+    state: "",
     language: "",
     password: "",
     passwordConfirm: "",
@@ -31,7 +32,7 @@ export default function Signup() {
     navigate("/login");
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (inputs.password !== inputs.passwordConfirm) {
       alert("비밀번호가 일치하지 않습니다.");
@@ -53,6 +54,16 @@ export default function Signup() {
         ...inputs,
         email: "",
       });
+    }
+    try {
+      console.log(inputs);
+      await axios.post("http://localhost:3000/auth/signup", inputs, {
+        withCredentials: true,
+      });
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -115,15 +126,15 @@ export default function Signup() {
           </div>
           <div className="w-10/12 px-3 mt-5">
             <label className="block mb-2 text-sm font-bold text-gray-700">
-              Status
+              State
             </label>
             <select
-              name="status"
-              id="status"
+              name="state"
+              id="state"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-10/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={handleChange}
             >
-              <option selected>Choose your status</option>
+              <option selected>Choose your state</option>
               <option value="exchange">Exachange</option>
               <option value="normal">Normal</option>
             </select>
