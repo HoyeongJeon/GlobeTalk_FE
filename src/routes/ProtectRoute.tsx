@@ -1,4 +1,3 @@
-import { useStore } from "@/stores/store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,8 +14,6 @@ export const ProtectRoute: React.FC<ProtectRouteProps> = ({
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/");
-    } else {
-      navigate("/login");
     }
   }, [isLoggedIn, navigate]);
 
