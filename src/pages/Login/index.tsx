@@ -1,9 +1,11 @@
+import { useStore } from "@/stores/store";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function Login() {
+  const { setIsLoggedIn } = useStore((state) => state);
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     email: "",
@@ -38,7 +40,13 @@ export default function Login() {
       const res = await axios.post("http://localhost:3000/auth/login", inputs, {
         withCredentials: true,
       });
-      console.log(res);
+      const {
+        data: { accessToken, refreshToken },
+      } = res;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      setIsLoggedIn(true);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
