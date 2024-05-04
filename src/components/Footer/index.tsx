@@ -1,8 +1,9 @@
 import { useStore } from "@/stores/store";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const { setIsLoggedIn } = useStore((state) => state);
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
@@ -39,15 +40,15 @@ export default function Footer() {
             <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">MyProfile</span>
           </Link>
 
-          <a
-            href="#!"
+          <Link
+            to="/login"
             type="button"
             className="rounded-full bg-transparent p-3 font-medium uppercase leading-normal text-surface transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-none focus:ring-0 dark:text-white dark:hover:bg-secondary-900"
             data-twe-ripple-init
             onClick={handleLogout}
           >
             <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">Logout</span>
-          </a>
+          </Link>
         </div>
       </div>
 

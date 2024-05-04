@@ -37,9 +37,15 @@ export default function Login() {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/auth/login", inputs, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_SERVER_HOST}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/auth/login`,
+        inputs,
+        {
+          withCredentials: true,
+        }
+      );
       const {
         data: { accessToken, refreshToken },
       } = res;

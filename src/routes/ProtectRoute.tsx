@@ -12,8 +12,8 @@ export const ProtectRoute: React.FC<ProtectRouteProps> = ({
 }: ProtectRouteProps) => {
   const navigate = useNavigate();
   useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
+    if (!isLoggedIn) {
+      navigate("/login");
     }
   }, [isLoggedIn, navigate]);
 
