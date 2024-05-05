@@ -39,25 +39,31 @@ export default function Profile() {
             <div className="w-80 h-80 flex justify-center">
               <img
                 className="object-cover object-center shadow-lg rounded-lg"
-                src="https://unsplash.it/400/400"
+                src={`${import.meta.env.VITE_SERVER_HOST}:${
+                  import.meta.env.VITE_SERVER_PORT
+                }/uploads/${Profile.imageUrl}`}
               />
               <div className="p-4 mx-auto h-80">
                 <div className="float-left text-left">
-                  <span className="text-xl">Name | </span>
+                  <span className="text-xl text-blue-800">Name </span>
+                  <span className="text-xl"> | </span>
                   <span>{Profile.nickname}</span>
                 </div>
                 <div className="float-left text-left">
-                  <span className="text-xl">State | </span>
+                  <span className="text-xl text-blue-800">State </span>
+                  <span className="text-xl"> | </span>
                   <span>{Profile.state}</span>
                 </div>
 
                 <div className="float-left text-left">
-                  <span className="text-xl">Major | </span>
+                  <span className="text-xl text-blue-800">Major </span>
+                  <span className="text-xl"> | </span>
                   <span>{Profile.major}</span>
                 </div>
 
                 <div className="float-left text-left">
-                  <span className="text-xl">Introduce | </span>
+                  <span className="text-xl text-blue-800">Introduce </span>
+                  <span className="text-xl"> | </span>
                   <span>{Profile.introduce}</span>
                 </div>
 

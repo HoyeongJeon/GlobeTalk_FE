@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { countries } from "@/utils/countries";
 interface ModalProps {
   imageUrl: string;
   nickname: string;
@@ -45,43 +45,46 @@ export default function Modal({
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <div className="float-left whitespace-normal">
-                    <span className="text-lg">Name | </span>
-                    <span>{nickname}</span>
+                  <div className="float-left whitespace-normal ">
+                    <span className="text-lg text-blue-800">Name </span>
+                    <span>| {nickname}</span>
                   </div>
                   <br />
                   <br />
-                  <div className="float-left whitespace-normal">
-                    <span className="text-lg">Country | </span>
-                    <span>{country}</span>
+                  <div className="float-left whitespace-normal ">
+                    <span className="text-lg text-blue-800">Country </span>
+                    <span>
+                      | {country} {}
+                    </span>
                   </div>
                   <br />
                   <br />
                   <div className="float-left">
-                    <span className="text-lg">Languages | </span>
+                    <span className="text-lg text-blue-800">Languages </span>
                     <span>
+                      |
                       {language.map((lan) => {
-                        if (lan === "en") return "🇺🇸 ";
-                        if (lan === "ja") return "🇯🇵 ";
-                        if (lan === "ko") return "🇰🇷 ";
-                        if (lan === "zh") return "🇨🇳 ";
-                        if (lan === "es") return "🇪🇸 ";
-                        if (lan === "fr") return "🇫🇷 ";
-                        if (lan === "de") return "🇩🇪 ";
+                        if (lan === "en") return " 🇺🇸 ";
+                        if (lan === "ja") return " 🇯🇵 ";
+                        if (lan === "ko") return " 🇰🇷 ";
+                        if (lan === "zh") return " 🇨🇳 ";
+                        if (lan === "es") return " 🇪🇸 ";
+                        if (lan === "fr") return " 🇫🇷 ";
+                        if (lan === "de") return " 🇩🇪 ";
                       })}
                     </span>
                   </div>
                   <br />
                   <br />
                   <div className="float-left">
-                    <span className="text-lg">Major | </span>
-                    <span>{major}</span>
+                    <span className="text-lg text-blue-800">Major </span>
+                    <span>| {major}</span>
                   </div>
                   <br />
                   <br />
                   <div className="float-left">
-                    <span className="text-lg">Introduce | </span>
-                    <span>{introduce}</span>
+                    <span className="text-lg text-blue-800">Introduce </span>
+                    <span>| {introduce}</span>
                   </div>
                 </div>
                 {/*footer*/}
