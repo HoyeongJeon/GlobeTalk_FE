@@ -3,6 +3,7 @@ import { useProfileStore } from "@/stores/profileStore";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { languages } from "@/utils/languages";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -62,6 +63,25 @@ export default function Profile() {
                 </div>
 
                 <div className="float-left text-left">
+                  <span className="text-xl text-blue-800">Language </span>
+                  <span className="text-xl"> | </span>
+                  <span>
+                    {Profile.language.map((lang) => {
+                      const language = languages.find((l) => l.code === lang);
+                      return language
+                        ? `${language.name} ${language.flag}`
+                        : "";
+                    })}
+                  </span>
+                </div>
+
+                <div className="float-left text-left">
+                  <span className="text-xl text-blue-800">Major </span>
+                  <span className="text-xl"> | </span>
+                  <span>{Profile.major}</span>
+                </div>
+
+                <div className="float-left text-left">
                   <span className="text-xl text-blue-800">Introduce </span>
                   <span className="text-xl"> | </span>
                   <span>{Profile.introduce}</span>
@@ -78,6 +98,7 @@ export default function Profile() {
                   <button
                     className=" w-[100px] px-4 py-2 mt-5 font-bold text-gray-700 bg-gray-300 rounded hover:bg-gray-500 focus:outline-none focus:shadow-outline"
                     type="button"
+                    onClick={() => navigate("/me/edit")}
                   >
                     Edit
                   </button>

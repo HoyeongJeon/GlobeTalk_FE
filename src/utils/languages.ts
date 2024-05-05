@@ -7,7 +7,6 @@ export const languages = [
   { code: "ko", name: "Korean", flag: "🇰🇷" },
   { code: "pt", name: "Portuguese", flag: "🇵🇹" },
   { code: "ru", name: "Russian", flag: "🇷🇺" },
-  { code: "tr", name: "Turkish", flag: "🇹🇷" },
   { code: "zh", name: "Chinese", flag: "🇨🇳" },
   { code: "es", name: "Spanish", flag: "🇪🇸" },
   { code: "vt", name: "Vietnamese", flag: "🇻🇳" },

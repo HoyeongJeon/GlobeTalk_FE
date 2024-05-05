@@ -22,21 +22,6 @@ export default function Signup() {
   const [imageUrl, setImageUrl] = useState<string | null | File>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  // 파일 업로드 핸들러
-
-  // const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files && e.target.files[0];
-
-  //   if (file) {
-  //     const fileReader = new FileReader();
-  //     fileReader.onload = (ev) => {
-  //       if (ev.target?.result) {
-  //         setSelectedFile()
-  //       }
-  //     };
-  //   }
-  // };
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
