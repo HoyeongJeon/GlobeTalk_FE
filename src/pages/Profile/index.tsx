@@ -1,6 +1,33 @@
 import Footer from "@/components/Footer";
+import { useProfileStore } from "@/stores/profileStore";
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate();
+  const { Profile, setProfile } = useProfileStore((state) => state);
+  useEffect(() => {
+    const getMyProfile = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_HOST}:${
+            import.meta.env.VITE_SERVER_PORT
+          }/users/me`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        const { data } = response;
+        setProfile(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getMyProfile();
+  }, []);
   return (
     <>
       <div className="flex flex-col h-screen">
@@ -12,30 +39,39 @@ export default function Profile() {
             <div className="w-80 h-80 flex justify-center">
               <img
                 className="object-cover object-center shadow-lg rounded-lg"
-                src="https://unsplash.it/400/400"
+                src={`${import.meta.env.VITE_SERVER_HOST}:${
+                  import.meta.env.VITE_SERVER_PORT
+                }/uploads/${Profile.imageUrl}`}
               />
               <div className="p-4 mx-auto h-80">
-                <p className="text-3xl font-normal tracking-normal text-gray-800 tk-brandon-grotesque">
-                  닉네임
-                </p>
-                <p className="text-3xl font-normal tracking-normal text-gray-800 tk-brandon-grotesque">
-                  일반 / 교환
-                </p>
-                <p className="text-3xl font-normal tracking-normal text-gray-800 tk-brandon-grotesque">
-                  학과
-                </p>
-                <p className="text-3xl font-normal tracking-normal text-gray-800 tk-brandon-grotesque">
-                  출신 국가
-                </p>
+                <div className="float-left text-left">
+                  <span className="text-xl text-blue-800">Name </span>
+                  <span className="text-xl"> | </span>
+                  <span>{Profile.nickname}</span>
+                </div>
+                <div className="float-left text-left">
+                  <span className="text-xl text-blue-800">State </span>
+                  <span className="text-xl"> | </span>
+                  <span>{Profile.state}</span>
+                </div>
 
-                <p className="text-3xl font-normal tracking-normal text-gray-800 tk-brandon-grotesque">
-                  자기소개
-                </p>
+                <div className="float-left text-left">
+                  <span className="text-xl text-blue-800">Major </span>
+                  <span className="text-xl"> | </span>
+                  <span>{Profile.major}</span>
+                </div>
+
+                <div className="float-left text-left">
+                  <span className="text-xl text-blue-800">Introduce </span>
+                  <span className="text-xl"> | </span>
+                  <span>{Profile.introduce}</span>
+                </div>
 
                 <div className="w-full flex flex-nowrap justify-center gap-10">
                   <button
                     className="w-[100px] px-4 py-2 mt-5 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                     type="button"
+                    onClick={() => navigate("/")}
                   >
                     Cancel
                   </button>
