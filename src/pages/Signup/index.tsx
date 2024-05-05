@@ -76,7 +76,7 @@ export default function Signup() {
     <>
       <main className="flex flex-col items-center justify-center h-screen some-element">
         <h1 className="mt-5 text-3xl font-bold text-gray-700">회원가입</h1>
-        <form className="p-5 bg-white rounded shadow-lg w-1/2">
+        <form className="p-5 bg-white rounded shadow-lg w-1/2 grid place-items-center">
           <div className="w-10/12 px-3 mt-5 mb-4">
             <label className="block mb-2 text-sm font-bold text-gray-700">
               Email
@@ -136,7 +136,7 @@ export default function Signup() {
             <select
               name="state"
               id="state"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-10/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-10/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
               onChange={handleChange}
             >
               <option selected>Choose your state</option>
@@ -157,7 +157,7 @@ export default function Signup() {
               <option selected>Choose a country</option>
               {countries.map((country) => (
                 <option key={country.code} value={country.code}>
-                  {country.name}
+                  {country.name} | {country.flag}
                 </option>
               ))}
             </select>
@@ -176,7 +176,7 @@ export default function Signup() {
               <option selected>Choose a Languages</option>
               {languages.map((language) => (
                 <option key={language.code} value={language.code}>
-                  {language.name}
+                  {language.name} | {language.flag}
                 </option>
               ))}
             </select>
