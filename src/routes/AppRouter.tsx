@@ -5,6 +5,7 @@ import Signup from "@/pages/Signup";
 import Main from "@/pages/Main";
 import { useStore } from "@/stores/store";
 import Profile from "@/pages/Profile";
+import ProfileEdit from "@/pages/ProfileEdit";
 
 const AppRouter = () => {
   const { isLoggedIn } = useStore();
@@ -25,7 +26,8 @@ const AppRouter = () => {
           }
         />
         <Route path="/" element={<Main />} />
-        <Route path="/myprofile" element={<Profile />} />
+        <Route path="/me" element={<Profile />} />
+        <Route path="/me/edit" element={<ProfileEdit />} />
       </Routes>
     </BrowserRouter>
   );
