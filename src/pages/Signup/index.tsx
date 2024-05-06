@@ -95,7 +95,6 @@ export default function Signup() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           withCredentials: true,
         }

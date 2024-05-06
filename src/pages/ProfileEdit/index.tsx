@@ -54,14 +54,25 @@ export default function ProfileEdit() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("nickname", inputs.nickname);
-    formData.append("major", inputs.major);
-    formData.append("introduce", inputs.introduce);
-    if (inputs.language) {
-      formData.append("language", inputs.language);
-    } else {
-      formData.append("language", Profile.language[0]);
-    }
+    formData.append(
+      "nickname",
+      inputs.nickname ? inputs.nickname : Profile.nickname
+    );
+    formData.append("major", inputs.major ? inputs.major : Profile.major);
+    formData.append(
+      "introduce",
+      inputs.introduce ? inputs.introduce : Profile.introduce
+    );
+    formData.append(
+      "language",
+      inputs.language ? inputs.language : Profile.language[0]
+    );
+
+    // if (inputs.language) {
+    //   formData.append("language", inputs.language);
+    // } else {
+    //   formData.append("language", Profile.language[0]);
+    // }
 
     if (selectedFile) {
       console.log(selectedFile);
@@ -71,30 +82,33 @@ export default function ProfileEdit() {
     }
 
     try {
+      // axios 요청 시 put 은 form-data와 함께 사용 안되는 이슈.
       const res = await axios.put(
         `${import.meta.env.VITE_SERVER_HOST}:${
           import.meta.env.VITE_SERVER_PORT
         }/users/me`,
-        formData,
+        {
+          nickname: inputs.nickname ? inputs.nickname : Profile.nickname,
+          major: inputs.major ? inputs.major : Profile.major,
+          introduce: inputs.introduce ? inputs.introduce : Profile.introduce,
+          language: inputs.language ? inputs.language : Profile.language[0],
+        },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "application/json",
           },
-          withCredentials: true,
         }
       );
-      console.log(res);
-      //   if (res.status === 201) {
-      //     Swal.fire({
-      //       icon: "success",
-      //       title: "회원가입이 완료되었습니다.",
-      //       text: "로그인 페이지로 이동합니다.",
-      //     });
 
-      //     navigate("/login");
-      //   }
-      navigate("/me");
+      if (res.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "프로필 업데이트 완료",
+        });
+
+        navigate("/me");
+      }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         Swal.fire({
