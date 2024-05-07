@@ -80,16 +80,6 @@ export default function Footer() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-
-          {/* <Link
-            to="/login"
-            type="button"
-            className="rounded-full bg-transparent p-3 font-medium uppercase leading-normal text-surface transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-none focus:ring-0 dark:text-white dark:hover:bg-secondary-900"
-            data-twe-ripple-init
-            onClick={handleLogout}
-          >
-            <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">Logout</span>
-          </Link> */}
         </div>
       </div>
 

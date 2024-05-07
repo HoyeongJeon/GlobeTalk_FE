@@ -23,7 +23,6 @@ export default function Modal({
       {imageUrl ? (
         <img
           className="object-cover object-center shadow-lg rounded-lg"
-          // src={imageUrl}
           // src={`${import.meta.env.VITE_SERVER_HOST}:${
           //   import.meta.env.VITE_SERVER_PORT
           // }/uploads/${imageUrl}`}

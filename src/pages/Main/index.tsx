@@ -4,6 +4,7 @@ import Modal from "@/components/Modal";
 import { useRecommendedUserStore } from "@/stores/recommendedUserStore";
 import axios from "axios";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function Main() {
   const {
@@ -16,6 +17,53 @@ export default function Main() {
     User: { country },
     setUserInfo,
   } = useRecommendedUserStore((state) => state);
+
+  const handleRequest = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_HOST}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/chats/random/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        Swal.fire({
+          title: `${nickname}에게 요청을 보냈습니다.`,
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      }
+
+      const getRecommendedUser = async () => {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_SERVER_HOST}:${
+              import.meta.env.VITE_SERVER_PORT
+            }/chats/random`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              },
+            }
+          );
+          const { data } = response;
+          setUserInfo(data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      getRecommendedUser();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const getRecommendedUser = async () => {
       try {
@@ -37,6 +85,7 @@ export default function Main() {
     };
     getRecommendedUser();
   }, []);
+
   const handleNext = () => {
     const getRecommendedUser = async () => {
       try {
@@ -85,13 +134,7 @@ export default function Main() {
               </div>
 
               <div className="w-full flex flex-nowrap justify-center gap-10">
-                <Button
-                  content="Request"
-                  onClick={() => {
-                    console.log("Click Request");
-                  }}
-                />
-
+                <Button content="Request" onClick={handleRequest} />
                 <Button content="Next" onClick={handleNext} />
               </div>
             </div>
