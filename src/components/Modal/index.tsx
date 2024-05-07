@@ -23,6 +23,9 @@ export default function Modal({
       {imageUrl ? (
         <img
           className="object-cover object-center shadow-lg rounded-lg"
+          // src={`${import.meta.env.VITE_SERVER_HOST}:${
+          //   import.meta.env.VITE_SERVER_PORT
+          // }/uploads/${imageUrl}`}
           src={imageUrl}
           onClick={() => setShowModal(true)}
         />

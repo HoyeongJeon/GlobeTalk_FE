@@ -75,7 +75,6 @@ export default function ProfileEdit() {
     // }
 
     if (selectedFile) {
-      console.log(selectedFile);
       formData.append("imageUrl", selectedFile);
     } else {
       formData.append("imageUrl", Profile.imageUrl);
@@ -83,6 +82,7 @@ export default function ProfileEdit() {
 
     try {
       // axios 요청 시 put 은 form-data와 함께 사용 안되는 이슈.
+      console.log("formData", formData.get("language"));
       const res = await axios.put(
         `${import.meta.env.VITE_SERVER_HOST}:${
           import.meta.env.VITE_SERVER_PORT
