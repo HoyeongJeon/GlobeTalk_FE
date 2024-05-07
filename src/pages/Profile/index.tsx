@@ -50,16 +50,11 @@ export default function Profile() {
                   <span className="text-xl"> | </span>
                   <span>{Profile.nickname}</span>
                 </div>
+
                 <div className="float-left text-left">
                   <span className="text-xl text-blue-800">State </span>
                   <span className="text-xl"> | </span>
                   <span>{Profile.state}</span>
-                </div>
-
-                <div className="float-left text-left">
-                  <span className="text-xl text-blue-800">Major </span>
-                  <span className="text-xl"> | </span>
-                  <span>{Profile.major}</span>
                 </div>
 
                 <div className="float-left text-left">
