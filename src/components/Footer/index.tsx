@@ -1,9 +1,19 @@
 import { useStore } from "@/stores/store";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Footer() {
   const { setIsLoggedIn } = useStore((state) => state);
-  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
@@ -40,7 +50,38 @@ export default function Footer() {
             <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">MyProfile</span>
           </Link>
 
-          <Link
+          <AlertDialog>
+            <AlertDialogTrigger className="rounded-full bg-transparent p-3 font-medium uppercase leading-normal text-surface transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-none focus:ring-0 dark:text-white dark:hover:bg-secondary-900">
+              <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">Logout</span>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="bg-white">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Do you want to logout?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="bg-sky-300 hover:bg-sky-700">
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction className="bg-sky-300 hover:bg-sky-700">
+                  <Link
+                    to="/login"
+                    type="button"
+                    data-twe-ripple-init
+                    onClick={handleLogout}
+                  >
+                    <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">
+                      Logout
+                    </span>
+                  </Link>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
+          {/* <Link
             to="/login"
             type="button"
             className="rounded-full bg-transparent p-3 font-medium uppercase leading-normal text-surface transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-none focus:ring-0 dark:text-white dark:hover:bg-secondary-900"
@@ -48,7 +89,7 @@ export default function Footer() {
             onClick={handleLogout}
           >
             <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">Logout</span>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
