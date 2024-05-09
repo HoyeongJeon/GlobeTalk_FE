@@ -6,6 +6,7 @@ import Main from "@/pages/Main";
 import { useStore } from "@/stores/store";
 import Profile from "@/pages/Profile";
 import ProfileEdit from "@/pages/ProfileEdit";
+import Chat from "@/pages/Chat";
 
 const AppRouter = () => {
   const { isLoggedIn } = useStore();
@@ -28,6 +29,8 @@ const AppRouter = () => {
         <Route path="/" element={<Main />} />
         <Route path="/me" element={<Profile />} />
         <Route path="/me/edit" element={<ProfileEdit />} />
+
+        <Route path="/chats" element={<Chat />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import { useRecommendedUserStore } from "@/stores/recommendedUserStore";
 import axios from "axios";
@@ -110,6 +111,7 @@ export default function Main() {
   return (
     <>
       <div className="flex flex-col h-screen">
+        <Header />
         <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
           <div className="pb-3.5">
             <h1 className="text-6xl font-bold pb-3.5">Welcome to GlobeTalk</h1>

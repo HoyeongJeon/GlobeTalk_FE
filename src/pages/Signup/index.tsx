@@ -148,7 +148,7 @@ export default function Signup() {
               type="text"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="nickname"
-              placeholder="닉네임을 입력해주세요."
+              placeholder="Type your nickname here."
               onChange={handleChange}
             />
           </div>
@@ -178,7 +178,7 @@ export default function Signup() {
               type="text"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="introduce"
-              placeholder="자기소개를 입력해주세요."
+              placeholder="Introduce yourself here."
               onChange={handleChange}
             />
           </div>
@@ -263,7 +263,7 @@ export default function Signup() {
               type="password"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="password"
-              placeholder="비밀번호를 입력해주세요."
+              placeholder="Type your password here."
               onChange={handleChange}
             />
           </div>
@@ -276,7 +276,7 @@ export default function Signup() {
               type="password"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="password-confirm"
-              placeholder="비밀번호를 다시 입력해주세요."
+              placeholder="Type your password again."
               onChange={handleChange}
             />
           </div>
@@ -302,7 +302,7 @@ export default function Signup() {
           </div>
           <div className="w-full flex flex-nowrap justify-center gap-10">
             <a href="" className="text-blue-500 text-sm ">
-              Gmail 만들러 가기!
+              Make DKU Gmail Account
             </a>
           </div>
         </form>
