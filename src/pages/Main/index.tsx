@@ -125,6 +125,7 @@ export default function Main() {
                 language={language}
                 major={major}
                 country={country}
+                imageTrue={true}
               />
               <div className="p-4 mx-auto">
                 <p className="text-sm font-normal tracking-normal text-gray-800 tk-brandon-grotesque">
