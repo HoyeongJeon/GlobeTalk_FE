@@ -83,14 +83,14 @@ export default function Header() {
           },
         }
       );
-      console.log(response);
-      // if (response.status === 201) {
-      //   Swal.fire({
-      //     title: `요청을 수락했습니다.`,
-      //     icon: "success",
-      //     confirmButtonText: "OK",
-      //   });
-      // }
+      if (response.status === 201) {
+        window.location.reload();
+        Swal.fire({
+          title: `요청을 수락했습니다.`,
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      }
     } catch (error) {
       console.error(error);
     }
