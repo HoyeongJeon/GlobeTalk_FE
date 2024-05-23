@@ -4,6 +4,19 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { languages } from "@/utils/languages";
+import Header from "@/components/Header";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -29,9 +42,11 @@ export default function Profile() {
     };
     getMyProfile();
   }, []);
+
   return (
     <>
       <div className="flex flex-col h-screen">
+        <Header />
         <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
           <div className="pb-3.5">
             <h1 className="text-6xl font-bold pb-3.5">Profile</h1>
@@ -98,6 +113,49 @@ export default function Profile() {
                     Edit
                   </button>
                 </div>
+                <AlertDialog>
+                  <AlertDialogTrigger className=" w-[240px] px-4 py-2 mt-5 font-bold text-gray-700 bg-gray-300 rounded hover:bg-gray-500 focus:outline-none focus:shadow-outline">
+                    Delete Account
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="bg-white">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Report User</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        {/* <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Content
+                        </label>
+                        <Input placeholder="Write down the reason why you report" />
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Date(eg. 211231 23 59)
+                        </label>
+                        <Input placeholder="YYMMDD Hour Minute" /> */}
+                        <div className="w-full px-3 mt-5">
+                          <label className="block mb-2 text-sm font-bold text-gray-700">
+                            If you want to delete your account, please enter
+                            your password below.
+                          </label>
+                          <input
+                            name="password"
+                            type="password"
+                            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                            id="password"
+                            placeholder="Enter your password"
+                          />
+                        </div>
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => {
+                          console.log("hello");
+                        }}
+                      >
+                        Submit
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </div>
           </div>

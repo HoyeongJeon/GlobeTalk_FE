@@ -1,5 +1,5 @@
 import { useStore } from "@/stores/store";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -54,6 +54,15 @@ export default function Login() {
       setIsLoggedIn(true);
       navigate("/");
     } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 400) {
+          Swal.fire({
+            icon: "error",
+            title: "이메일과 비밀번호를 확인해주세요.",
+            text: "이메일과 비밀번호를 확인해주세요.",
+          });
+        }
+      }
       console.error(error);
     }
   };

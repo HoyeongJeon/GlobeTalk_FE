@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { countries } from "@/utils/countries";
 import { languages } from "@/utils/languages";
+import { majors } from "@/utils/majors";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -147,7 +148,7 @@ export default function Signup() {
               type="text"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="nickname"
-              placeholder="닉네임을 입력해주세요."
+              placeholder="Type your nickname here."
               onChange={handleChange}
             />
           </div>
@@ -167,19 +168,7 @@ export default function Signup() {
               onChange={handleFileChange}
             />
           </div>
-          <div className="w-10/12 px-3 mt-5">
-            <label className="block mb-2 text-sm font-bold text-gray-700">
-              Major
-            </label>
-            <input
-              name="major"
-              type="text"
-              className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-              id="major"
-              placeholder="전공을 입력해주세요."
-              onChange={handleChange}
-            />
-          </div>
+
           <div className="w-10/12 px-3 mt-5">
             <label className="block mb-2 text-sm font-bold text-gray-700">
               Introduce
@@ -189,7 +178,7 @@ export default function Signup() {
               type="text"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="introduce"
-              placeholder="자기소개를 입력해주세요."
+              placeholder="Introduce yourself here."
               onChange={handleChange}
             />
           </div>
@@ -229,6 +218,25 @@ export default function Signup() {
 
           <div className="w-10/12 px-3 mt-5">
             <label className="block mb-2 text-sm font-bold text-gray-700">
+              Major
+            </label>
+            <select
+              name="major"
+              id="major"
+              className="text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-10/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={handleChange}
+            >
+              <option selected>Choose a major</option>
+              {majors.map((major) => (
+                <option key={major} value={major}>
+                  {major}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="w-10/12 px-3 mt-5">
+            <label className="block mb-2 text-sm font-bold text-gray-700">
               Languages
             </label>
             <select
@@ -255,7 +263,7 @@ export default function Signup() {
               type="password"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="password"
-              placeholder="비밀번호를 입력해주세요."
+              placeholder="Type your password here."
               onChange={handleChange}
             />
           </div>
@@ -268,7 +276,7 @@ export default function Signup() {
               type="password"
               className="w-10/12 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               id="password-confirm"
-              placeholder="비밀번호를 다시 입력해주세요."
+              placeholder="Type your password again."
               onChange={handleChange}
             />
           </div>
@@ -294,7 +302,7 @@ export default function Signup() {
           </div>
           <div className="w-full flex flex-nowrap justify-center gap-10">
             <a href="" className="text-blue-500 text-sm ">
-              Gmail 만들러 가기!
+              Make DKU Gmail Account
             </a>
           </div>
         </form>
