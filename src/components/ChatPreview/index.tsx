@@ -15,12 +15,7 @@ export default function ChatPreview({
 }: ChatPreviewProps) {
   return (
     <div className="border-2 border-sky-500 w-11/12 h-14 content-center mb-4">
-      <Link
-        to={`/chats/${chatId}`}
-        onClick={() => {
-          alert(`Chat room is not implemented yet. ${chatId}`);
-        }}
-      >
+      <Link to={`/chats/${chatId}`}>
         <div className="flex flex-row items-center">
           <div className="w-1/6 flex">
             <img
