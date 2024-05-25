@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useStore } from "@/stores/store";
+import { create } from "domain";
 
 interface ChatMessageProps {}
 
@@ -32,10 +33,13 @@ const ChatRoom = ({}: ChatMessageProps) => {
           },
         }
       );
-      console.log(message);
+
+      let tempTime = new Date();
+      tempTime.setHours(tempTime.getHours() + 9);
       let tempMessage = {
-        message: message,
         id: messages.length + 1,
+        message: message,
+        createdAt: tempTime.toISOString(),
         Author: {
           Profile: {
             id: userId,
@@ -43,7 +47,6 @@ const ChatRoom = ({}: ChatMessageProps) => {
           },
         },
       };
-      // console.log([...messages, tempMessage]);
       setMessages([...messages, tempMessage]);
       if (res.status === 201) {
         // 메시지를 성공적으로 보냈을 때 해야할 일
@@ -59,6 +62,7 @@ const ChatRoom = ({}: ChatMessageProps) => {
     }, 0);
   };
 
+  console.log(messages);
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -72,7 +76,15 @@ const ChatRoom = ({}: ChatMessageProps) => {
       })
       .then((res) => {
         setChatPartner(res.data.result.Users[0].Profile.nickname);
-        setMessages(res.data.result.Messages);
+        let messages = res.data.result.Messages.map((message: any) => {
+          let time = new Date(message.createdAt);
+          time.setHours(time.getHours() + 9);
+          return {
+            ...message,
+            createdAt: time.toISOString(),
+          };
+        });
+        setMessages(messages);
       })
       .catch((error) => {
         console.error(error);
@@ -97,7 +109,7 @@ const ChatRoom = ({}: ChatMessageProps) => {
                         {message.Author.Profile.nickname}
                       </span> */}
                       <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                        11:46
+                        {message.createdAt.slice(11, 16)}
                       </span>
                     </div>
                     <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white text-left">
@@ -123,7 +135,7 @@ const ChatRoom = ({}: ChatMessageProps) => {
                         {message.Author.Profile.nickname}
                       </span>
                       <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                        11:46
+                        {message.createdAt.slice(11, 16)}
                       </span>
                     </div>
                     <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
