@@ -16,7 +16,7 @@ export default function ChatPreview({
   return (
     <div className="border-2 border-sky-500 w-11/12 h-14 content-center mb-4">
       <Link
-        to="#"
+        to={`/chats/${chatId}`}
         onClick={() => {
           alert(`Chat room is not implemented yet. ${chatId}`);
         }}

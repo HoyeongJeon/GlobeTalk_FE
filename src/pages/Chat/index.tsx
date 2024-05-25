@@ -26,8 +26,6 @@ export default function Chat() {
     };
     getChatRooms();
   }, [setChatPreview]);
-  console.log("chatPreview");
-  console.log(chatPreview);
   return (
     <>
       <div className="flex flex-col h-screen">
