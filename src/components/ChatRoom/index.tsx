@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useStore } from "@/stores/store";
-import { create } from "domain";
+import useSocket from "@/hooks/useSocket";
 
 interface ChatMessageProps {}
 
 const ChatRoom = ({}: ChatMessageProps) => {
   const { id: userId } = useStore((state) => state);
   const { id: roomId } = useParams<{ id: string }>();
+  const [socket, disconnect] = useSocket(Number(roomId));
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<any[]>([]);
   const [chatParter, setChatPartner] = useState<string>("");
@@ -19,40 +20,28 @@ const ChatRoom = ({}: ChatMessageProps) => {
     setMessage(e.target.value);
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        `http://localhost:3000/chats/rooms/${roomId}`,
-        {
-          message: message,
+    let tempTime = new Date();
+    tempTime.setHours(tempTime.getHours() + 9);
+    let tempMessage = {
+      id: messages.length + 1,
+      message: message,
+      createdAt: tempTime.toISOString(),
+      Author: {
+        Profile: {
+          id: userId,
+          nickname: "",
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      },
+    };
+    setMessages([...messages, tempMessage]);
 
-      let tempTime = new Date();
-      tempTime.setHours(tempTime.getHours() + 9);
-      let tempMessage = {
-        id: messages.length + 1,
-        message: message,
-        createdAt: tempTime.toISOString(),
-        Author: {
-          Profile: {
-            id: userId,
-            nickname: "",
-          },
-        },
-      };
-      setMessages([...messages, tempMessage]);
-      if (res.status === 201) {
-        // 메시지를 성공적으로 보냈을 때 해야할 일
-        // setMessages([...messages, res.data.result]);
-      }
-    } catch (error) {}
+    socket?.emit("send_message", {
+      message: message,
+      chatId: roomId,
+    });
+
     setMessage("");
   };
 
@@ -62,10 +51,15 @@ const ChatRoom = ({}: ChatMessageProps) => {
     }, 0);
   };
 
-  console.log(messages);
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    socket?.on("receive_message", (data: any) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+  }, [socket]);
 
   useEffect(() => {
     axios
@@ -90,6 +84,7 @@ const ChatRoom = ({}: ChatMessageProps) => {
         console.error(error);
       });
   }, [setMessages]);
+
   return (
     <>
       <div className="flex flex-col h-screen">
@@ -105,9 +100,6 @@ const ChatRoom = ({}: ChatMessageProps) => {
                 <div className="flex items-start gap-2.5">
                   <div className="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-tr-none rounded-tl-xl rounded-es-xl dark:bg-gray-700">
                     <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      {/* <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                        {message.Author.Profile.nickname}
-                      </span> */}
                       <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                         {message.createdAt.slice(11, 16)}
                       </span>
