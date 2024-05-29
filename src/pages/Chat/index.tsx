@@ -20,14 +20,13 @@ export default function Chat() {
           }
         );
         setChatPreview(res.data);
+        console.log(res.data[0].currentMessage[0].message);
       } catch (error) {
         console.error(error);
       }
     };
     getChatRooms();
   }, [setChatPreview]);
-  console.log("chatPreview");
-  console.log(chatPreview);
   return (
     <>
       <div className="flex flex-col h-screen">
@@ -41,7 +40,8 @@ export default function Chat() {
               key={chat.id}
               chatId={chat.id}
               nickname={chat.Users[0].Profile.nickname}
-              introduce={chat.Users[0].Profile.introduce}
+              currentMessage={chat.currentMessage[0].message}
+              time={chat.currentMessage[0].createdAt}
               profileImage={chat.Users[0].Profile.profileImage}
             />
           ))}

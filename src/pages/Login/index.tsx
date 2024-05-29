@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function Login() {
-  const { setIsLoggedIn } = useStore((state) => state);
+  const { setIsLoggedIn, setUserId } = useStore((state) => state);
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     email: "",
@@ -47,11 +47,16 @@ export default function Login() {
         }
       );
       const {
-        data: { accessToken, refreshToken },
+        data: {
+          user: { id },
+          accessToken,
+          refreshToken,
+        },
       } = res;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       setIsLoggedIn(true);
+      setUserId(id);
       navigate("/");
     } catch (error) {
       if (error instanceof AxiosError) {
