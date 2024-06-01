@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ProtectRoute } from "./ProtectRoute";
+import { PublicRoute } from "./PublicRoute";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import Main from "@/pages/Main";
@@ -28,12 +29,40 @@ const AppRouter = () => {
             <ProtectRoute isLoggedIn={isLoggedIn} element={<Signup />} />
           }
         />
-        <Route path="/" element={<Main />} />
-        <Route path="/me" element={<Profile />} />
-        <Route path="/me/edit" element={<ProfileEdit />} />
-        <Route path="/chats" element={<Chat />} />
-        <Route path="/chats/:id" element={<ChatRoom />} />
-        <Route path="/admin" element={<Admin />} />
+
+        <Route
+          path="/"
+          element={<PublicRoute isLoggedIn={isLoggedIn} element={<Main />} />}
+        />
+        <Route
+          path="/me"
+          element={
+            <PublicRoute isLoggedIn={isLoggedIn} element={<Profile />} />
+          }
+        />
+        <Route
+          path="/me/edit"
+          element={
+            <PublicRoute isLoggedIn={isLoggedIn} element={<ProfileEdit />} />
+          }
+        />
+
+        <Route
+          path="/chats"
+          element={<PublicRoute isLoggedIn={isLoggedIn} element={<Chat />} />}
+        />
+
+        <Route
+          path="/chats/:id"
+          element={
+            <PublicRoute isLoggedIn={isLoggedIn} element={<ChatRoom />} />
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={<PublicRoute isLoggedIn={isLoggedIn} element={<Admin />} />}
+        />
       </Routes>
     </BrowserRouter>
   );
