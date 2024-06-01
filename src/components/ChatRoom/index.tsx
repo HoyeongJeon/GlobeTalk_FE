@@ -84,6 +84,8 @@ const ChatRoom = ({}: ChatMessageProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (message === "") return;
+
     let tempTime = new Date();
     tempTime.setHours(tempTime.getHours() + 9);
     let tempMessage = {
@@ -97,6 +99,7 @@ const ChatRoom = ({}: ChatMessageProps) => {
         },
       },
     };
+
     setMessages([...messages, tempMessage]);
 
     socket?.emit("send_message", {
