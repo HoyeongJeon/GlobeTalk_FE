@@ -19,6 +19,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useEffect } from "react";
 
 export default function Admin() {
   const handleLogout = () => {
@@ -26,6 +27,9 @@ export default function Admin() {
     localStorage.removeItem("refreshToken");
     // setIsLoggedIn(false);
   };
+
+  useEffect(() => {}, []);
+
   return (
     <div className="flex flex-col h-screen">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">

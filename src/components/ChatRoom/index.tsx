@@ -57,11 +57,13 @@ const ChatRoom = ({}: ChatMessageProps) => {
       return;
     }
     try {
+      console.log(roomId);
       const res = await axios.post(
         `${import.meta.env.VITE_SERVER_HOST}:${
           import.meta.env.VITE_SERVER_PORT
         }/admin/report`,
         {
+          chatId: roomId,
           reporterId: userId,
           reporteeId: chatParter?.id,
           reason: JSON.stringify(checkedReason),
