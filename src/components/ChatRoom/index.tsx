@@ -30,6 +30,7 @@ const ChatRoom = ({}: ChatMessageProps) => {
   const [messages, setMessages] = useState<any[]>([]);
   const [chatParter, setChatPartner] = useState<ChatParterProps>();
   const [checkedReason, setCheckedReason] = useState<string[]>([]);
+  const [isReported, setIsReported] = useState<boolean>(false);
   const [date, setDate] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement>(null); // 스크롤을 위한 ref
   const handleMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,10 +105,14 @@ const ChatRoom = ({}: ChatMessageProps) => {
 
     setMessages([...messages, tempMessage]);
 
-    socket?.emit("send_message", {
-      message: message,
-      chatId: roomId,
-    });
+    try {
+      socket?.emit("send_message", {
+        message: message,
+        chatId: roomId,
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     setMessage("");
   };
@@ -149,6 +154,7 @@ const ChatRoom = ({}: ChatMessageProps) => {
           };
         });
         setMessages(messages);
+        setIsReported(res.data.result.IsReported);
       })
       .catch((error) => {
         console.error(error);
@@ -268,10 +274,12 @@ const ChatRoom = ({}: ChatMessageProps) => {
           <div className="relative flex" data-twe-input-wrapper-init>
             <input
               type="text"
-              className="peer block min-h-[auto] w-full border-0 bg-neutral-800 px-3 py-[1rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
+              className="peer block min-h-[auto] w-full border-0 bg-neutral-800 px-3 py-[1rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-100"
               id="input"
               value={message}
               onChange={handleMessage}
+              disabled={isReported}
+              placeholder={isReported ? "This chat is reported." : ""}
             />
             <button className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 text-center">
               Send

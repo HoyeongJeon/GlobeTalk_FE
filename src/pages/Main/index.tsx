@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import { useRecommendedUserStore } from "@/stores/recommendedUserStore";
 import { useStore } from "@/stores/store";
-import axios, { Axios, AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 

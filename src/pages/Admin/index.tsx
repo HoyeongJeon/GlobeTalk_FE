@@ -20,6 +20,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useEffect } from "react";
+import axios from "axios";
 
 export default function Admin() {
   const handleLogout = () => {
@@ -28,7 +29,25 @@ export default function Admin() {
     // setIsLoggedIn(false);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getReportedUser = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_HOST}:${
+            import.meta.env.VITE_SERVER_PORT
+          }/admin`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        const { data } = response;
+        console.log(data);
+      } catch (error) {}
+    };
+    getReportedUser();
+  }, []);
 
   return (
     <div className="flex flex-col h-screen">
