@@ -21,89 +21,8 @@ import {
 } from "@/components/ui/pagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-interface Report {
-  id: number;
-  Chat: {
-    id: number;
-    IsReported: boolean;
-    createdAt: string;
-  };
-  reason: string;
-  reportee: {
-    Profile: {};
-    country: string;
-    createdAt: string;
-    email: string;
-    id: number;
-  };
-  reporter: {
-    Profile: {};
-    country: string;
-    createdAt: string;
-    email: string;
-    id: number;
-  };
-}
-
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
 
 export default function Admin() {
-  const [reportedArr, setReportedArr] = useState([]);
-
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
@@ -111,12 +30,12 @@ export default function Admin() {
   };
 
   useEffect(() => {
-    const getReportedUser = async () => {
+    const getAllUsers = async () => {
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_HOST}:${
             import.meta.env.VITE_SERVER_PORT
-          }/admin`,
+          }/admin/users`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -124,11 +43,9 @@ export default function Admin() {
           }
         );
         const { data } = response;
-        setReportedArr(data);
       } catch (error) {}
     };
-    getReportedUser();
-    console.log(reportedArr);
+    getAllUsers();
   }, []);
 
   return (
@@ -136,29 +53,6 @@ export default function Admin() {
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <div className="pb-3.5">
           {/* <h1 className="text-6xl font-bold pb-3.5">Admin</h1> */}
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">ChatId</TableHead>
-                <TableHead>신고자</TableHead>
-                <TableHead>피신고자</TableHead>
-                <TableHead className="text-right">이유</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableCaption>신고 목록</TableCaption>
-            <TableBody>
-              {reportedArr.map((report: Report) => (
-                <TableRow key={report.id}>
-                  <TableCell className="font-medium">
-                    {report.Chat.id}
-                  </TableCell>
-                  <TableCell>{report.reporter.id}</TableCell>
-                  <TableCell>{report.reportee.id}</TableCell>
-                  <TableCell className="text-right">{report.reason}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
         </div>
       </main>
       <Pagination>
@@ -209,6 +103,15 @@ export default function Admin() {
             >
               <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">Users</span>
             </Link>
+
+            {/* <Link
+              to="/me"
+              type="button"
+              className="rounded-full bg-transparent p-3 font-medium uppercase leading-normal text-surface transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-none focus:ring-0 dark:text-white dark:hover:bg-secondary-900"
+              data-twe-ripple-init
+            >
+              <span className="mx-auto [&>svg]:h-5 [&>svg]:w-5">MyProfile</span>
+            </Link> */}
 
             <AlertDialog>
               <AlertDialogTrigger className="rounded-full bg-transparent p-3 font-medium uppercase leading-normal text-surface transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-none focus:ring-0 dark:text-white dark:hover:bg-secondary-900">

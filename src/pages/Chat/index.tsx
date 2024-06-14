@@ -19,8 +19,9 @@ export default function Chat() {
             },
           }
         );
+        console.log("res");
+        console.log(res);
         setChatPreview(res.data);
-        console.log(res.data[0].currentMessage[0].message);
       } catch (error) {
         console.error(error);
       }
@@ -40,8 +41,12 @@ export default function Chat() {
               key={chat.id}
               chatId={chat.id}
               nickname={chat.Users[0].Profile.nickname}
-              currentMessage={chat.currentMessage[0].message}
-              time={chat.currentMessage[0].createdAt}
+              currentMessage={
+                chat.currentMessage[0]?.message
+                  ? chat.currentMessage[0]?.message
+                  : "No message arrived yet"
+              }
+              time={chat.currentMessage[0]?.createdAt}
               profileImage={chat.Users[0].Profile.profileImage}
             />
           ))}

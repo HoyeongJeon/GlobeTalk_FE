@@ -10,6 +10,7 @@ import ProfileEdit from "@/pages/ProfileEdit";
 import Chat from "@/pages/Chat";
 import Admin from "@/pages/Admin";
 import ChatRoom from "@/components/ChatRoom";
+import Users from "@/pages/Users";
 
 const AppRouter = () => {
   const { isLoggedIn } = useStore();
@@ -62,6 +63,11 @@ const AppRouter = () => {
         <Route
           path="/admin"
           element={<PublicRoute isLoggedIn={isLoggedIn} element={<Admin />} />}
+        />
+
+        <Route
+          path="/admin/users"
+          element={<PublicRoute isLoggedIn={isLoggedIn} element={<Users />} />}
         />
       </Routes>
     </BrowserRouter>
