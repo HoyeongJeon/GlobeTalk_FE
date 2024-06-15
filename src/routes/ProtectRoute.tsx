@@ -16,6 +16,5 @@ export const ProtectRoute: React.FC<ProtectRouteProps> = ({
       navigate("/");
     }
   }, [isLoggedIn, navigate]);
-
   return element;
 };

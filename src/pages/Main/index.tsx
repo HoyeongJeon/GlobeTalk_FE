@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import { useRecommendedUserStore } from "@/stores/recommendedUserStore";
-import axios from "axios";
+import { useStore } from "@/stores/store";
+import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 
@@ -18,6 +19,7 @@ export default function Main() {
     User: { country },
     setUserInfo,
   } = useRecommendedUserStore((state) => state);
+  const { setIsLoggedIn } = useStore((state) => state);
 
   const handleRequest = async () => {
     try {
@@ -65,28 +67,6 @@ export default function Main() {
     }
   };
 
-  useEffect(() => {
-    const getRecommendedUser = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_HOST}:${
-            import.meta.env.VITE_SERVER_PORT
-          }/chats/random`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        const { data } = response;
-        setUserInfo(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getRecommendedUser();
-  }, []);
-
   const handleNext = () => {
     const getRecommendedUser = async () => {
       try {
@@ -108,6 +88,37 @@ export default function Main() {
     };
     getRecommendedUser();
   };
+
+  useEffect(() => {
+    const getRecommendedUser = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_HOST}:${
+            import.meta.env.VITE_SERVER_PORT
+          }/chats/random`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        const { data } = response;
+        setUserInfo(data);
+      } catch (error) {
+        if (error instanceof AxiosError && error.response?.status === 401) {
+          setIsLoggedIn(false);
+          Swal.fire({
+            title: "로그인이 필요합니다.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+        console.error(error);
+      }
+    };
+    getRecommendedUser();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col h-screen">

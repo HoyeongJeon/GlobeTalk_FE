@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { MouseEvent } from "react";
 
 interface ChatPreviewProps {
   chatId: number;
@@ -17,8 +18,16 @@ export default function ChatPreview({
 }: ChatPreviewProps) {
   let newTime = String(new Date(time));
   newTime = newTime.slice(16, 21);
+
+  const onRightClickDeleteChatRoom = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    alert("You want to delete this chat room?");
+  };
   return (
-    <div className="border-2 border-sky-500 w-11/12 h-14 content-center mb-4">
+    <div
+      className="border-2 border-sky-500 w-11/12 h-14 content-center mb-4"
+      onContextMenu={onRightClickDeleteChatRoom}
+    >
       <Link to={`/chats/${chatId}`}>
         <div className="flex flex-row items-center">
           <div className="w-2/6 flex">

@@ -31,6 +31,7 @@ export default function ProfileEdit() {
         }
       };
       fileReader.readAsDataURL(file);
+      alert("이미지가 변경되었습니다.");
     } else {
       setSelectedFile(null);
       setImageUrl(null);
@@ -52,7 +53,6 @@ export default function ProfileEdit() {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append(
       "nickname",
@@ -68,35 +68,20 @@ export default function ProfileEdit() {
       inputs.language ? inputs.language : Profile.language[0]
     );
 
-    // if (inputs.language) {
-    //   formData.append("language", inputs.language);
-    // } else {
-    //   formData.append("language", Profile.language[0]);
-    // }
-
     if (selectedFile) {
       formData.append("imageUrl", selectedFile);
-    } else {
-      formData.append("imageUrl", Profile.imageUrl);
     }
-
     try {
       // axios 요청 시 put 은 form-data와 함께 사용 안되는 이슈.
-      console.log("formData", formData.get("language"));
       const res = await axios.put(
         `${import.meta.env.VITE_SERVER_HOST}:${
           import.meta.env.VITE_SERVER_PORT
         }/users/me`,
-        {
-          nickname: inputs.nickname ? inputs.nickname : Profile.nickname,
-          major: inputs.major ? inputs.major : Profile.major,
-          introduce: inputs.introduce ? inputs.introduce : Profile.introduce,
-          language: inputs.language ? inputs.language : Profile.language[0],
-        },
+        formData,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
